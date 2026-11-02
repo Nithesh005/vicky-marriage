@@ -1,0 +1,185 @@
+@import "tailwindcss";
+
+:root {
+  --maroon: #4a1020;
+  --burgundy: #310b18;
+  --gold: #c9a45c;
+  --champagne: #e7d4a5;
+  --ivory: #fff9ef;
+  --blush: #f2d9d7;
+  --emerald: #244c3a;
+  --background: var(--burgundy);
+  --foreground: var(--ivory);
+}
+
+@theme inline {
+  --color-maroon: var(--maroon);
+  --color-burgundy: var(--burgundy);
+  --color-gold: var(--gold);
+  --color-champagne: var(--champagne);
+  --color-ivory: var(--ivory);
+  --color-blush: var(--blush);
+  --color-emerald: var(--emerald);
+  --font-serif: var(--font-cormorant);
+  --font-sans: var(--font-inter);
+  --font-tamil: var(--font-tamil);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--burgundy);
+  color: var(--ivory);
+  font-family: var(--font-inter), system-ui, sans-serif;
+}
+
+.font-serif {
+  font-family: var(--font-cormorant), "Times New Roman", serif;
+}
+
+.font-tamil {
+  font-family: var(--font-tamil), "Noto Sans Tamil", sans-serif;
+}
+
+.gold-text {
+  color: var(--champagne);
+  text-shadow: 0 0 24px rgba(201, 164, 92, 0.25);
+}
+
+.gold-foil {
+  background: linear-gradient(180deg, #f4e4b8 0%, #c9a45c 48%, #8d6b2f 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.ornament-frame {
+  border: 1px solid rgba(201, 164, 92, 0.55);
+  box-shadow:
+    inset 0 0 0 6px rgba(255, 249, 239, 0.08),
+    inset 0 0 0 7px rgba(201, 164, 92, 0.35),
+    0 24px 60px rgba(0, 0, 0, 0.28);
+}
+
+.ivory-card {
+  background:
+    radial-gradient(1200px 400px at 50% 0%, rgba(242, 217, 215, 0.35), transparent 55%),
+    linear-gradient(180deg, #fff9ef 0%, #f7ecd8 100%);
+  color: var(--burgundy);
+}
+
+.grain {
+  position: relative;
+}
+
+.grain::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  opacity: 0.18;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
+}
+
+.diya {
+  width: 14px;
+  height: 22px;
+  border-radius: 50% 50% 45% 45%;
+  background: radial-gradient(circle at 50% 70%, #c9a45c, #4a1020 70%);
+  position: relative;
+  box-shadow: 0 0 18px rgba(201, 164, 92, 0.55);
+}
+
+.diya::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -10px;
+  width: 8px;
+  height: 14px;
+  translate: -50% 0;
+  border-radius: 50% 50% 40% 40%;
+  background: radial-gradient(circle at 40% 30%, #fff9ef, #e7d4a5 40%, #c45c2a 80%);
+  animation: flicker 2.4s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%,
+  100% {
+    transform: scale(1) rotate(-4deg);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(1.12) rotate(4deg);
+    opacity: 1;
+  }
+}
+
+@keyframes float-y {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translate3d(0, -10vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translate3d(18vw, 110vh, 0) rotate(280deg);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-gold {
+  0%,
+  100% {
+    box-shadow: 0 0 0 1px rgba(201, 164, 92, 0.55), 0 0 24px rgba(201, 164, 92, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 1px rgba(231, 212, 165, 0.9), 0 0 36px rgba(201, 164, 92, 0.4);
+  }
+}
+
+.gold-btn {
+  animation: pulse-gold 3.6s ease-in-out infinite;
+}
+
+.petal {
+  position: absolute;
+  top: -12vh;
+  width: 10px;
+  height: 16px;
+  border-radius: 80% 0 80% 0;
+  background: linear-gradient(135deg, #fff9ef, #f2d9d7 40%, #c9a45c);
+  opacity: 0.7;
+  animation: petal-fall linear infinite;
+}
+
+.scroll-hint {
+  animation: float-y 2.8s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .diya::after,
+  .gold-btn,
+  .petal,
+  .scroll-hint {
+    animation: none !important;
+  }
+}
