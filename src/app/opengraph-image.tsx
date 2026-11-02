@@ -23,14 +23,35 @@ export default function OpenGraphImage() {
         <div style={{ fontSize: 22, letterSpacing: 12, textTransform: "uppercase" }}>
           {event.type.en}
         </div>
-        <div style={{ fontSize: 92, fontFamily: "serif", marginTop: 24 }}>
-          {event.bride.firstName} & {event.groom.firstName}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 92,
+            fontFamily: "serif",
+            marginTop: 24,
+          }}
+        >
+          {`${event.bride.firstName} & ${event.groom.firstName}`}
         </div>
-        <div style={{ fontSize: 28, marginTop: 28, color: "#FFF9EF" }}>
-          {event.date.displayEn} · {event.time.displayEn}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 28,
+            marginTop: 28,
+            color: "#FFF9EF",
+          }}
+        >
+          {`${event.date.displayEn} · ${event.time.displayEn}`}
         </div>
-        <div style={{ fontSize: 22, marginTop: 12, color: "#F2D9D7" }}>
-          {event.venue.name}, {event.venue.city}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            marginTop: 12,
+            color: "#F2D9D7",
+          }}
+        >
+          {`${event.venue.name}, ${event.venue.city}`}
         </div>
       </div>
     ),

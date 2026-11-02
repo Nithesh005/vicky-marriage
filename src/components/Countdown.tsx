@@ -7,11 +7,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { Kolam } from "./Ornament";
 
-function Unit({ value, label }: { value: number; label: string }) {
+function Unit({ value, label }: { value: number | null; label: string }) {
   return (
     <div className="ornament-frame flex min-w-[72px] flex-col items-center rounded-2xl bg-burgundy/80 px-3 py-4 md:min-w-[96px] md:px-5">
       <span className="font-serif text-4xl text-gold tabular-nums md:text-5xl">
-        {String(value).padStart(2, "0")}
+        {value === null ? "--" : String(value).padStart(2, "0")}
       </span>
       <span className="mt-2 text-[10px] uppercase tracking-[0.28em] text-champagne">
         {label}
@@ -22,14 +22,15 @@ function Unit({ value, label }: { value: number; label: string }) {
 
 export default function Countdown() {
   const reduced = usePrefersReducedMotion();
-  const [time, setTime] = useState(() => getTimeLeft());
+  const [time, setTime] = useState<ReturnType<typeof getTimeLeft> | null>(null);
 
   useEffect(() => {
+    setTime(getTimeLeft());
     const id = window.setInterval(() => setTime(getTimeLeft()), 1000);
     return () => window.clearInterval(id);
   }, []);
 
-  const started = time.total <= 0;
+  const started = time !== null && time.total <= 0;
 
   return (
     <section className="bg-maroon px-4 py-24">
@@ -54,10 +55,10 @@ export default function Countdown() {
           </div>
         ) : (
           <div className="mt-10 flex flex-wrap items-center justify-center gap-3 md:gap-5">
-            <Unit value={time.days} label="Days" />
-            <Unit value={time.hours} label="Hours" />
-            <Unit value={time.minutes} label="Minutes" />
-            <Unit value={time.seconds} label="Seconds" />
+            <Unit value={time?.days ?? null} label="Days" />
+            <Unit value={time?.hours ?? null} label="Hours" />
+            <Unit value={time?.minutes ?? null} label="Minutes" />
+            <Unit value={time?.seconds ?? null} label="Seconds" />
           </div>
         )}
       </motion.div>
