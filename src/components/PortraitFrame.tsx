@@ -7,6 +7,10 @@ type PortraitFrameProps = {
   nameTa: string;
   src: string | null;
   label: string;
+  parents?: string;
+  parentsTa?: string;
+  hometown?: string;
+  hometownTa?: string;
 };
 
 export default function PortraitFrame({
@@ -14,17 +18,21 @@ export default function PortraitFrame({
   nameTa,
   src,
   label,
+  parents,
+  parentsTa,
+  hometown,
+  hometownTa,
 }: PortraitFrameProps) {
   return (
-    <figure className="flex w-full max-w-[260px] flex-col items-center">
+    <figure className="flex w-full max-w-[280px] flex-col items-center">
       <div className="ornament-frame relative aspect-[3/4] w-full overflow-hidden rounded-[42%_42%_18%_18%/28%_28%_12%_12%] bg-ivory/10">
         {src ? (
           <Image
             src={src}
             alt={`${name}, ${label}`}
             fill
-            sizes="260px"
-            className="object-cover transition duration-700 hover:scale-105"
+            sizes="280px"
+            className="object-cover object-top transition duration-700 hover:scale-105"
           />
         ) : (
           <div className="flex h-full flex-col items-center justify-center bg-[radial-gradient(circle_at_50%_30%,rgba(201,164,92,0.18),transparent_60%)] px-6 text-center">
@@ -36,8 +44,25 @@ export default function PortraitFrame({
         )}
       </div>
       <figcaption className="mt-5 text-center">
-        <p className="font-serif text-4xl tracking-wide text-champagne">{name.toUpperCase()}</p>
+        <p className="text-[10px] uppercase tracking-[0.32em] text-gold">{label}</p>
+        <p className="font-serif mt-2 text-4xl tracking-wide text-champagne">
+          {name.toUpperCase()}
+        </p>
         <p className="font-tamil mt-1 text-sm text-blush">{nameTa}</p>
+        {parents ? (
+          <p className="mt-3 text-sm leading-relaxed text-ivory/80">{parents}</p>
+        ) : null}
+        {parentsTa ? (
+          <p className="font-tamil mt-1 text-xs text-blush/80">{parentsTa}</p>
+        ) : null}
+        {hometown ? (
+          <p className="mt-2 text-xs uppercase tracking-[0.18em] text-champagne/80">
+            {hometown}
+          </p>
+        ) : null}
+        {hometownTa ? (
+          <p className="font-tamil mt-1 text-xs text-blush/70">{hometownTa}</p>
+        ) : null}
       </figcaption>
     </figure>
   );

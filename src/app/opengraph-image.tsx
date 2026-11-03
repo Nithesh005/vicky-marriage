@@ -20,18 +20,29 @@ export default function OpenGraphImage() {
           color: "#E7D4A5",
         }}
       >
-        <div style={{ fontSize: 22, letterSpacing: 12, textTransform: "uppercase" }}>
+        <div
+          style={{
+            display: "flex",
+            fontSize: 22,
+            letterSpacing: 12,
+            textTransform: "uppercase",
+          }}
+        >
           {event.type.en}
         </div>
         <div
           style={{
             display: "flex",
-            fontSize: 92,
+            flexDirection: "row",
+            alignItems: "center",
+            fontSize: 72,
             fontFamily: "serif",
             marginTop: 24,
           }}
         >
-          {`${event.bride.firstName} & ${event.groom.firstName}`}
+          <div style={{ display: "flex" }}>{event.groom.firstName}</div>
+          <div style={{ display: "flex", margin: "0 18px" }}>and</div>
+          <div style={{ display: "flex" }}>{event.bride.firstName}</div>
         </div>
         <div
           style={{

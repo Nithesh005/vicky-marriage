@@ -48,19 +48,11 @@ export default function VenueSection() {
             href={mapsDirectionsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex min-h-12 min-w-[220px] items-center justify-center gap-2 rounded-full border border-gold px-6 py-3 text-xs uppercase tracking-[0.24em] text-champagne transition hover:bg-gold/15"
+            className="inline-flex min-h-12 min-w-[220px] items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-xs uppercase tracking-[0.24em] text-burgundy transition hover:bg-champagne"
           >
             <MapPin className="h-4 w-4" aria-hidden="true" />
             {event.copy.getDirections}
           </a>
-          <button
-            type="button"
-            onClick={downloadCalendarInvite}
-            className="inline-flex min-h-12 min-w-[220px] items-center justify-center gap-2 rounded-full bg-gold px-6 py-3 text-xs uppercase tracking-[0.24em] text-burgundy transition hover:bg-champagne"
-          >
-            <CalendarPlus className="h-4 w-4" aria-hidden="true" />
-            {event.copy.addToCalendar}
-          </button>
         </div>
       </motion.div>
     </section>

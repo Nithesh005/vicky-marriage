@@ -29,10 +29,10 @@ export default function CoupleSection() {
   return (
     <section id="couple" className="relative overflow-hidden bg-maroon px-4 py-24 md:py-32">
       <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 opacity-20">
-        <Image src={event.assets.mandala} alt="" fill className="object-contain" />
+        <Image src={event.assets.mandala} alt="" fill sizes="256px" className="object-contain" />
       </div>
       <div className="pointer-events-none absolute -right-16 bottom-10 h-64 w-64 opacity-20">
-        <Image src={event.assets.mandala} alt="" fill className="object-contain" />
+        <Image src={event.assets.mandala} alt="" fill sizes="256px" className="object-contain" />
       </div>
 
       <div className="relative mx-auto max-w-6xl">
@@ -52,14 +52,18 @@ export default function CoupleSection() {
           </p>
         </motion.div>
 
-        <div className="flex flex-col items-center justify-center gap-8 md:flex-row md:items-end md:gap-4">
+        <div className="flex flex-col items-center justify-center gap-10 md:flex-row md:items-start md:gap-6">
           <PortraitFrame
-            name={event.bride.firstName}
-            nameTa={event.bride.firstNameTa}
-            src={event.photos.bride}
-            label="Bride"
+            name={event.groom.displayName}
+            nameTa={event.groom.firstNameTa}
+            src={event.photos.groom}
+            label="Groom"
+            parents={event.groom.parents}
+            parentsTa={event.groom.parentsTa}
+            hometown={event.groom.hometown}
+            hometownTa={event.groom.hometownTa}
           />
-          <div className="flex flex-col items-center">
+          <div className="flex flex-col items-center md:pt-16">
             {reduced ? (
               <Image
                 src={event.assets.rings}
@@ -73,23 +77,15 @@ export default function CoupleSection() {
             )}
           </div>
           <PortraitFrame
-            name={event.groom.firstName}
-            nameTa={event.groom.firstNameTa}
-            src={event.photos.groom}
-            label="Groom"
+            name={event.bride.displayName}
+            nameTa={event.bride.firstNameTa}
+            src={event.photos.bride}
+            label="Bride"
+            parents={event.bride.parents}
+            parentsTa={event.bride.parentsTa}
+            hometown={event.bride.hometown}
+            hometownTa={event.bride.hometownTa}
           />
-        </div>
-
-        <div className="mx-auto mt-16 max-w-md">
-          <div className="ornament-frame overflow-hidden rounded-[28px] bg-ivory/95 p-3">
-            <Image
-              src={event.assets.coupleIllustration}
-              alt="Illustrated celebration of Anu and Vicky"
-              width={720}
-              height={900}
-              className="h-auto w-full object-contain"
-            />
-          </div>
         </div>
       </div>
     </section>

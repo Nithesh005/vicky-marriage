@@ -43,17 +43,57 @@ export default function InvitationSection() {
         <p className="mt-6 text-sm tracking-[0.16em] text-maroon/70">
           {event.copy.invitationBody}
         </p>
-        <h2 className="font-serif mt-4 text-5xl text-maroon md:text-6xl">
-          {event.bride.firstName.toUpperCase()} & {event.groom.firstName.toUpperCase()}
+        <h2 className="font-serif mt-4 text-4xl text-maroon md:text-5xl">
+          {event.names.joinedUpper}
         </h2>
         <p className="font-tamil mt-3 text-xl text-maroon">
           {event.copy.invitationNamesTa}
         </p>
-        <p className="font-serif mt-6 text-xl tracking-[0.18em] text-gold">
+
+        <div className="mt-10 grid gap-8 text-left sm:grid-cols-2 sm:text-center">
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.28em] text-emerald">
+              Groom
+            </p>
+            <p className="font-serif mt-2 text-2xl text-maroon">
+              {event.groom.displayName}
+            </p>
+            <p className="mt-2 text-sm text-maroon/75">{event.groom.parents}</p>
+            <p className="font-tamil mt-1 text-xs text-maroon/65">
+              {event.groom.parentsTa}
+            </p>
+            <p className="mt-2 text-xs uppercase tracking-[0.16em] text-maroon/70">
+              {event.groom.hometown}
+            </p>
+          </div>
+          <div>
+            <p className="text-[10px] uppercase tracking-[0.28em] text-emerald">
+              Bride
+            </p>
+            <p className="font-serif mt-2 text-2xl text-maroon">
+              {event.bride.displayName}
+            </p>
+            <p className="mt-2 text-sm text-maroon/75">{event.bride.parents}</p>
+            <p className="font-tamil mt-1 text-xs text-maroon/65">
+              {event.bride.parentsTa}
+            </p>
+            <p className="mt-2 text-xs uppercase tracking-[0.16em] text-maroon/70">
+              {event.bride.hometown}
+            </p>
+          </div>
+        </div>
+
+        <p className="font-serif mt-10 text-xl tracking-[0.18em] text-gold">
           {event.type.en}
         </p>
         <p className="font-tamil mt-2 text-base text-maroon/80">
           {event.copy.invitationEventTa}
+        </p>
+        <p className="mt-4 text-sm tracking-[0.12em] text-maroon/75">
+          {event.date.displayEn} · {event.time.displayEn}
+        </p>
+        <p className="mt-2 text-sm text-maroon/70">
+          {event.venue.name}, {event.venue.city}
         </p>
       </motion.article>
     </section>

@@ -13,16 +13,16 @@ const rows = [
     valueTa: event.type.ta,
   },
   {
-    label: "Bride",
-    labelTa: "மணமகள்",
-    value: event.bride.firstName,
-    valueTa: event.bride.firstNameTa,
-  },
-  {
     label: "Groom",
     labelTa: "மணமகன்",
-    value: event.groom.firstName,
+    value: event.groom.displayName,
     valueTa: event.groom.firstNameTa,
+  },
+  {
+    label: "Bride",
+    labelTa: "மணமகள்",
+    value: event.bride.displayName,
+    valueTa: event.bride.firstNameTa,
   },
   {
     label: "Date",

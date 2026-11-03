@@ -21,12 +21,12 @@ export function buildCalendarIcs() {
   const startLocal = event.datetime.replace(/[-:]/g, "").replace("+0530", "");
   const dtStart = startLocal.slice(0, 15);
   const location = `${event.venue.name}, ${event.venue.city}, ${event.venue.state}, ${event.venue.country}`;
-  const uid = `engagement-${event.bride.firstName}-${event.groom.firstName}-${event.date.isoDate}@invitation`.toLowerCase();
+  const uid = `engagement-${event.groom.firstName}-${event.bride.firstName}-${event.date.isoDate}@invitation`.toLowerCase();
 
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
-    "PRODID:-//Anu and Vicky//Engagement Invitation//EN",
+    "PRODID:-//Vignesh and Preethi//Engagement Invitation//EN",
     "CALSCALE:GREGORIAN",
     "METHOD:PUBLISH",
     "BEGIN:VTIMEZONE",
@@ -58,7 +58,7 @@ export function downloadCalendarInvite() {
   const url = URL.createObjectURL(blob);
   const anchor = document.createElement("a");
   anchor.href = url;
-  anchor.download = "anu-vicky-engagement.ics";
+  anchor.download = "vignesh-preethi-engagement.ics";
   document.body.appendChild(anchor);
   anchor.click();
   anchor.remove();

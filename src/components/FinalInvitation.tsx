@@ -16,6 +16,7 @@ export default function FinalInvitation() {
         src={event.assets.floralFrame}
         alt=""
         fill
+        sizes="100vw"
         className="object-cover opacity-30"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(49,11,24,0.35)_0%,rgba(49,11,24,0.82)_100%)]" />
@@ -48,7 +49,7 @@ export default function FinalInvitation() {
           {event.copy.withLove}
         </p>
         <h2 className="font-serif gold-foil mt-4 text-5xl md:text-6xl">
-          {event.bride.firstName.toUpperCase()} & {event.groom.firstName.toUpperCase()}
+          {event.names.joinedUpper}
         </h2>
         <p className="mt-4 tracking-[0.28em] text-champagne">{event.date.short}</p>
       </motion.div>

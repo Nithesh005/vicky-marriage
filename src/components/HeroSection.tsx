@@ -15,6 +15,7 @@ export default function HeroSection() {
         alt=""
         fill
         priority
+        sizes="100vw"
         className="object-cover opacity-35"
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(49,11,24,0.55)_0%,rgba(49,11,24,0.28)_40%,rgba(49,11,24,0.72)_100%)]" />
@@ -41,12 +42,12 @@ export default function HeroSection() {
           {event.copy.heroEyebrow}
         </p>
         <Kolam className="mb-8 h-8 w-48" />
-        <h1 className="font-serif gold-foil text-[18vw] leading-[0.85] sm:text-8xl md:text-9xl">
-          {event.bride.firstName.toUpperCase()}
+        <h1 className="font-serif gold-foil text-[16vw] leading-[0.85] sm:text-8xl md:text-9xl">
+          {event.groom.firstName.toUpperCase()}
         </h1>
         <p className="my-2 font-serif text-4xl text-gold md:text-5xl">&</p>
-        <h1 className="font-serif gold-foil text-[18vw] leading-[0.85] sm:text-8xl md:text-9xl">
-          {event.groom.firstName.toUpperCase()}
+        <h1 className="font-serif gold-foil text-[16vw] leading-[0.85] sm:text-8xl md:text-9xl">
+          {event.bride.firstName.toUpperCase()}
         </h1>
         <p className="mt-8 font-serif text-xl tracking-[0.28em] text-ivory md:text-2xl">
           {event.type.en.toUpperCase()}

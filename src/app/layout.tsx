@@ -29,20 +29,25 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: event.seo.title,
   description: event.seo.description,
+  icons: {
+    icon: [{ url: event.assets.favicon, type: "image/png" }],
+    shortcut: event.assets.favicon,
+    apple: event.assets.favicon,
+  },
   keywords: [
-    "Anu",
-    "Vicky",
+    event.groom.displayName,
+    event.bride.displayName,
     "Engagement",
     "Salem",
-    "Sri Lakshimi Mahal",
-    "நிச்சயதார்த்த விழா",
+    event.venue.name,
+    event.type.ta,
   ],
   openGraph: {
     title: event.seo.title,
     description: event.seo.description,
     type: "website",
     locale: "en_IN",
-    siteName: "Anu & Vicky",
+    siteName: event.names.joinedEn,
   },
   twitter: {
     card: "summary_large_image",
@@ -72,7 +77,7 @@ const jsonLd = {
   description: event.seo.description,
   organizer: {
     "@type": "Person",
-    name: `${event.bride.firstName} & ${event.groom.firstName}`,
+    name: event.names.joinedEn,
   },
 };
 
@@ -83,6 +88,7 @@ export default function RootLayout({
     <html
       lang="en"
       className={`${cormorant.variable} ${inter.variable} ${tamil.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full bg-burgundy font-sans text-ivory">
         <script
