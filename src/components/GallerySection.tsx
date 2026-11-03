@@ -75,7 +75,7 @@ export default function GallerySection() {
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 md:gap-5">
+          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
             {photos.map((photo, index) => (
               <motion.button
                 key={photo.src}
@@ -84,17 +84,16 @@ export default function GallerySection() {
                 initial={reduced ? false : { opacity: 0, y: 16 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                className={`ornament-frame group relative overflow-hidden rounded-2xl ${
-                  index % 5 === 0 ? "md:row-span-2 min-h-72" : "min-h-44"
-                }`}
+                transition={{ delay: reduced ? 0 : Math.min(index * 0.05, 0.25) }}
+                className="ornament-frame group relative aspect-[9/7] w-full overflow-hidden rounded-3xl"
                 aria-label={`Open photograph: ${photo.alt}`}
               >
                 <Image
                   src={photo.src}
                   alt={photo.alt}
                   fill
-                  sizes="(max-width: 768px) 50vw, 33vw"
-                  className="object-cover transition duration-700 group-hover:scale-110"
+                  sizes="(max-width: 640px) 100vw, 50vw"
+                  className="object-cover object-[center_28%] transition duration-700 group-hover:scale-105"
                 />
               </motion.button>
             ))}

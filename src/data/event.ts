@@ -13,7 +13,7 @@ export const event = {
     parentsTa: "பழனி பி மற்றும் சங்கீதா ஆர் அவர்களின் புதல்வர்",
     hometown: "Nedungal, Krishnagiri",
     hometownTa: "நெடுங்கல், கிருஷ்ணகிரி",
-    photo: "/images/groom.png",
+    photo: "/images/groom2.png",
   },
   bride: {
     firstName: "Preethi",
@@ -80,16 +80,17 @@ export const event = {
     flowerGarland: "/images/flower-higlighted_flowers.png",
   },
   photos: {
-    bride: "/images/bride1.jpeg",
-    groom: "/images/groom1.png",
+    // bride: "/images/bride1.jpeg",
+    bride: "/images/bride2.png",
+    groom: "/images/groom2.png",
     couple: null as string | null,
     gallery: [
       {
-        src: "/images/groom1.png",
+        src: "/images/groom2.png",
         alt: "Vignesh P, the groom",
       },
       {
-        src: "/images/bride1.jpeg",
+        src: "/images/bride2.png",
         alt: "Preethi B, the bride",
       },
     ] as GalleryPhoto[],
