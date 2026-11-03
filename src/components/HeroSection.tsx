@@ -4,6 +4,7 @@ import { event } from "@/data/event";
 import { motion } from "framer-motion";
 import { ChevronDown } from "lucide-react";
 import Image from "next/image";
+import FloralImage from "./FloralImage";
 import GoldParticles from "./GoldParticles";
 import { Kolam } from "./Ornament";
 
@@ -20,6 +21,16 @@ export default function HeroSection() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(49,11,24,0.55)_0%,rgba(49,11,24,0.28)_40%,rgba(49,11,24,0.72)_100%)]" />
       <GoldParticles />
+      <FloralImage
+        variant="topLeft"
+        priority
+        className="absolute -left-8 -top-6 z-[2] w-28 sm:-left-4 sm:w-48 md:w-72 lg:-left-2 lg:w-[22rem]"
+      />
+      <FloralImage
+        variant="topRight"
+        priority
+        className="absolute -right-6 -top-4 z-[2] w-28 sm:w-44 md:w-72 lg:w-[22rem]"
+      />
 
       <div className="absolute left-6 top-1/2 hidden -translate-y-1/2 flex-col gap-8 md:flex">
         <span className="diya" />

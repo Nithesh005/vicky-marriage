@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import GoldParticles from "./GoldParticles";
+import MandalaWatermarks from "./MandalaWatermarks";
 import { Kolam } from "./Ornament";
 
 export default function FinalInvitation() {
@@ -21,6 +22,7 @@ export default function FinalInvitation() {
       />
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(49,11,24,0.35)_0%,rgba(49,11,24,0.82)_100%)]" />
       <GoldParticles />
+      <MandalaWatermarks />
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}

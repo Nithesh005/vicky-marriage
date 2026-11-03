@@ -69,11 +69,15 @@ export const event = {
   assets: {
     ganesh: "/images/ganesh.png",
     mandala: "/images/mandala.png",
-    floralFrame: "/images/floral-frame.webp",
+    floralFrame: "/images/floral-frame1.webp",
     rings: "/images/rings.webp",
     namaste: "/images/namaste.png",
     coupleIllustration: "/images/couple-illustration.webp",
     favicon: "/images/favicon.png",
+    flowerTopLeft: "/images/flower_decor-top-left.png",
+    flowerTopRight: "/images/flower-decor-top-right.png",
+    flowerGold: "/images/Flower-decor-transparent-gold.png",
+    flowerGarland: "/images/flower-higlighted_flowers.png",
   },
   photos: {
     bride: "/images/bride1.jpeg",

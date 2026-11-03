@@ -5,19 +5,21 @@ import { downloadCalendarInvite } from "@/lib/calendar";
 import { mapsDirectionsUrl, mapsEmbedUrl } from "@/lib/maps";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
-import { CalendarPlus, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
+import MandalaWatermarks from "./MandalaWatermarks";
 import { Kolam } from "./Ornament";
 
 export default function VenueSection() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <section id="venue" className="bg-maroon px-4 py-24">
+    <section id="venue" className="relative overflow-hidden bg-maroon px-4 py-24">
+      <MandalaWatermarks />
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.3 }}
-        className="mx-auto max-w-4xl text-center"
+        className="relative z-10 mx-auto max-w-4xl text-center"
       >
         <Kolam className="mx-auto mb-6 h-8 w-44" />
         <h2 className="font-serif text-4xl text-champagne md:text-5xl">

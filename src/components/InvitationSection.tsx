@@ -4,7 +4,8 @@ import { event } from "@/data/event";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { CornerFlourish, Kolam } from "./Ornament";
+import FloralImage from "./FloralImage";
+import { Kolam } from "./Ornament";
 
 export default function InvitationSection() {
   const reduced = usePrefersReducedMotion();
@@ -16,12 +17,24 @@ export default function InvitationSection() {
         whileInView={{ opacity: 1, y: 0, rotate: 0 }}
         viewport={{ once: true, amount: 0.3 }}
         transition={{ duration: 0.9, ease: "easeOut" }}
-        className="ivory-card ornament-frame relative mx-auto max-w-2xl px-6 py-14 text-center md:px-14 md:py-16"
+        className="ivory-card ornament-frame relative mx-auto max-w-2xl px-6 py-16 text-center md:px-16 md:py-20"
       >
-        <CornerFlourish className="absolute left-3 top-3 h-16 w-16" />
-        <CornerFlourish className="absolute right-3 top-3 h-16 w-16 rotate-90" />
-        <CornerFlourish className="absolute bottom-3 left-3 h-16 w-16 -rotate-90" />
-        <CornerFlourish className="absolute bottom-3 right-3 h-16 w-16 rotate-180" />
+        <FloralImage
+          variant="gold"
+          className="absolute -left-2 -top-3 w-28 md:-left-1 md:w-40"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -right-2 -top-3 w-28 -scale-x-100 md:w-40"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -bottom-3 -left-2 w-28 -scale-y-100 md:w-40"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -bottom-3 -right-2 w-28 rotate-180 md:w-40"
+        />
 
         <Image
           src={event.assets.ganesh}

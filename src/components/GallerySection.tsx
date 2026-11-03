@@ -6,6 +6,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import FloralImage from "./FloralImage";
 import { Kolam } from "./Ornament";
 
 export default function GallerySection() {
@@ -39,13 +40,22 @@ export default function GallerySection() {
   const touchX = useRef(0);
 
   return (
-    <section id="gallery" className="bg-[#3a0e1b] px-4 py-24">
-      <div className="mx-auto max-w-6xl">
+    <section id="gallery" className="relative overflow-hidden bg-[#3a0e1b] px-4 py-24">
+      <FloralImage
+        variant="topLeft"
+        className="absolute -left-10 -top-8 w-36 opacity-80 md:w-52"
+      />
+      <FloralImage
+        variant="topRight"
+        className="absolute -right-8 -top-6 w-32 opacity-80 md:w-48"
+      />
+      <div className="relative z-10 mx-auto max-w-6xl">
         <div className="mb-12 text-center">
           <Kolam className="mx-auto mb-6 h-8 w-44" />
           <h2 className="font-serif text-4xl text-champagne md:text-5xl">
             {event.copy.galleryHeading}
           </h2>
+          <FloralImage variant="garland" className="mx-auto mt-8 w-56 md:w-80" />
         </div>
 
         {photos.length === 0 ? (

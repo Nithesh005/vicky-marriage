@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import MandalaWatermarks from "./MandalaWatermarks";
 import { Kolam } from "./Ornament";
 import PortraitFrame from "./PortraitFrame";
 
@@ -28,14 +29,9 @@ export default function CoupleSection() {
 
   return (
     <section id="couple" className="relative overflow-hidden bg-maroon px-4 py-24 md:py-32">
-      <div className="pointer-events-none absolute -left-16 top-10 h-64 w-64 opacity-20">
-        <Image src={event.assets.mandala} alt="" fill sizes="256px" className="object-contain" />
-      </div>
-      <div className="pointer-events-none absolute -right-16 bottom-10 h-64 w-64 opacity-20">
-        <Image src={event.assets.mandala} alt="" fill sizes="256px" className="object-contain" />
-      </div>
+      <MandalaWatermarks />
 
-      <div className="relative mx-auto max-w-6xl">
+      <div className="relative z-10 mx-auto max-w-6xl">
         <motion.div
           initial={reduced ? false : { opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}

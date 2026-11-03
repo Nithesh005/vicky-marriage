@@ -3,7 +3,8 @@
 import { event } from "@/data/event";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
-import { CornerFlourish, Kolam } from "./Ornament";
+import FloralImage from "./FloralImage";
+import { Kolam } from "./Ornament";
 
 const rows = [
   {
@@ -54,15 +55,29 @@ export default function EventDetails() {
   const reduced = usePrefersReducedMotion();
 
   return (
-    <section id="details" className="bg-[#2b0914] px-4 py-24">
+    <section id="details" className="relative overflow-hidden bg-[#2b0914] px-4 py-24">
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 32 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.25 }}
-        className="ivory-card ornament-frame relative mx-auto max-w-xl px-6 py-12 md:px-12"
+        className="ivory-card ornament-frame relative z-10 mx-auto max-w-xl px-6 py-14 md:px-14"
       >
-        <CornerFlourish className="absolute left-3 top-3 h-14 w-14" />
-        <CornerFlourish className="absolute right-3 top-3 h-14 w-14 rotate-90" />
+        <FloralImage
+          variant="gold"
+          className="absolute -left-1 -top-2 w-24 md:w-32"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -right-1 -top-2 w-24 -scale-x-100 md:w-32"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -bottom-2 -left-1 w-24 -scale-y-100 md:w-32"
+        />
+        <FloralImage
+          variant="gold"
+          className="absolute -bottom-2 -right-1 w-24 rotate-180 md:w-32"
+        />
         <h2 className="font-serif text-center text-4xl text-maroon">
           {event.copy.detailsHeading}
         </h2>

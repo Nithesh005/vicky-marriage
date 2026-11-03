@@ -5,6 +5,7 @@ import { getTimeLeft } from "@/lib/countdown";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import MandalaWatermarks from "./MandalaWatermarks";
 import { Kolam } from "./Ornament";
 
 function Unit({ value, label }: { value: number | null; label: string }) {
@@ -33,12 +34,13 @@ export default function Countdown() {
   const started = time !== null && time.total <= 0;
 
   return (
-    <section className="bg-maroon px-4 py-24">
+    <section className="relative overflow-hidden bg-maroon px-4 py-24">
+      <MandalaWatermarks />
       <motion.div
         initial={reduced ? false : { opacity: 0, y: 24 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.4 }}
-        className="mx-auto max-w-3xl text-center"
+        className="relative z-10 mx-auto max-w-3xl text-center"
       >
         <Kolam className="mx-auto mb-6 h-8 w-44" />
         <h2 className="font-serif text-4xl text-champagne md:text-5xl">
