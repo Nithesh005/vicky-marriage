@@ -4,42 +4,81 @@ import { event } from "@/data/event";
 import { Music, Pause, Volume2, VolumeX } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
-const STORAGE_KEY = "invitation-music";
-
 type MusicPlayerProps = {
   shouldPlay: boolean;
 };
 
 export default function MusicPlayer({ shouldPlay }: MusicPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
+  const userStopped = useRef(false);
+  const userMuted = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(false);
 
   useEffect(() => {
     const audio = audioRef.current;
-    if (!audio) return;
-    const preference = sessionStorage.getItem(STORAGE_KEY);
-    if (shouldPlay && preference !== "off") {
-      audio
-        .play()
-        .then(() => setPlaying(true))
-        .catch(() => setPlaying(false));
-    }
+    if (!audio || !shouldPlay) return;
+
+    userStopped.current = false;
+    userMuted.current = false;
+    let detachGesture = () => {};
+
+    const playWithSound = () => {
+      if (userStopped.current) return Promise.resolve();
+      if (!userMuted.current) {
+        audio.muted = false;
+        audio.volume = 1;
+        setMuted(false);
+      }
+      return audio.play().then(() => {
+        if (userStopped.current) {
+          audio.pause();
+          setPlaying(false);
+          return;
+        }
+        setPlaying(true);
+        setMuted(audio.muted);
+        detachGesture();
+      });
+    };
+
+    const onGesture = (event: Event) => {
+      const target = event.target;
+      if (target instanceof Element && target.closest("[data-music-controls]")) return;
+      playWithSound().catch(() => setPlaying(false));
+    };
+
+    playWithSound().catch(() => {
+      setPlaying(false);
+      const options: AddEventListenerOptions = { capture: true };
+      window.addEventListener("pointerdown", onGesture, options);
+      window.addEventListener("keydown", onGesture, options);
+      detachGesture = () => {
+        window.removeEventListener("pointerdown", onGesture, options);
+        window.removeEventListener("keydown", onGesture, options);
+      };
+    });
+
+    return () => detachGesture();
   }, [shouldPlay]);
 
   const togglePlay = async () => {
     const audio = audioRef.current;
     if (!audio) return;
     if (playing) {
+      userStopped.current = true;
       audio.pause();
       setPlaying(false);
-      sessionStorage.setItem(STORAGE_KEY, "off");
       return;
     }
+    userStopped.current = false;
+    userMuted.current = false;
+    audio.muted = false;
+    audio.volume = 1;
+    setMuted(false);
     try {
       await audio.play();
       setPlaying(true);
-      sessionStorage.setItem(STORAGE_KEY, "on");
     } catch {
       setPlaying(false);
     }
@@ -49,11 +88,15 @@ export default function MusicPlayer({ shouldPlay }: MusicPlayerProps) {
     const audio = audioRef.current;
     if (!audio) return;
     audio.muted = !audio.muted;
+    userMuted.current = audio.muted;
     setMuted(audio.muted);
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-40 flex items-center gap-2">
+    <div
+      data-music-controls
+      className="fixed bottom-5 right-5 z-40 flex items-center gap-2"
+    >
       <audio ref={audioRef} src={event.audioSrc} loop preload="auto" />
       <button
         type="button"
