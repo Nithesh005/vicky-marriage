@@ -148,7 +148,7 @@ await sharp(background)
     { input: bride, left: brideLeft, top: groomTop },
     { input: overlay, left: 0, top: 0 },
   ])
-  .jpeg({ quality: 84, mozjpeg: true, chromaSubsampling: "4:4:4" })
+  .jpeg({ quality: 82, progressive: false, mozjpeg: false, chromaSubsampling: "4:2:0" })
   .toFile(ogPath);
 
 const iconDir = path.join(root, "public/icons");

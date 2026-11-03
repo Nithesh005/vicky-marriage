@@ -23,7 +23,7 @@ export const seo = {
   locality: "Salem",
   region: "Tamil Nadu",
   country: "IN",
-  imagePath: "/images/engagement-og.jpg",
+  imagePath: "/images/engagement-og.jpg?v=2",
   imageAlt:
     "Vignesh and Preethi at their engagement ceremony on 15 November 2026 at Sri Lakshimi Mahal, Salem.",
   imageWidth: 1200,
