@@ -1,5 +1,6 @@
 "use client";
 
+import { MotionConfig } from "framer-motion";
 import Countdown from "./Countdown";
 import CoupleSection from "./CoupleSection";
 import EventDetails from "./EventDetails";
@@ -13,11 +14,13 @@ import VenueSection from "./VenueSection";
 
 export default function InvitationExperience() {
   return (
-    <>
+    <MotionConfig reducedMotion="user">
+      <a href="#content" className="skip-link">
+        Skip to invitation
+      </a>
       <FloatingDecorations />
       <MusicPlayer shouldPlay />
-
-      <main>
+      <main id="content">
         <HeroSection />
         <CoupleSection />
         <InvitationSection />
@@ -27,6 +30,6 @@ export default function InvitationExperience() {
         <GallerySection />
         <FinalInvitation />
       </main>
-    </>
+    </MotionConfig>
   );
 }

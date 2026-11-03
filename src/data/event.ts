@@ -24,7 +24,7 @@ export const event = {
     parentsTa: "புவனேஷ் ஆர் மற்றும் வசுமதி பி அவர்களின் புதல்வி",
     hometown: "Salem",
     hometownTa: "சேலம்",
-    photo: "/images/bride.jpeg",
+    photo: "/images/bride2.png",
   },
   names: {
     joinedEn: "Vignesh & Preethi",

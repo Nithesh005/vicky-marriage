@@ -27,7 +27,7 @@ export default function MusicPlayer({ shouldPlay }: MusicPlayerProps) {
       if (userStopped.current) return Promise.resolve();
       if (!userMuted.current) {
         audio.muted = false;
-        audio.volume = 1;
+        audio.volume = 0.85;
         setMuted(false);
       }
       return audio.play().then(() => {
@@ -74,7 +74,7 @@ export default function MusicPlayer({ shouldPlay }: MusicPlayerProps) {
     userStopped.current = false;
     userMuted.current = false;
     audio.muted = false;
-    audio.volume = 1;
+    audio.volume = 0.85;
     setMuted(false);
     try {
       await audio.play();
@@ -95,22 +95,24 @@ export default function MusicPlayer({ shouldPlay }: MusicPlayerProps) {
   return (
     <div
       data-music-controls
-      className="fixed bottom-5 right-5 z-40 flex items-center gap-2"
+      className="fixed bottom-5 right-5 z-40 flex items-center gap-1 rounded-full border border-gold/35 bg-burgundy/75 p-1.5 shadow-[0_16px_40px_rgba(0,0,0,0.32)] backdrop-blur-md"
     >
-      <audio ref={audioRef} src={event.audioSrc} loop preload="auto" />
+      <audio ref={audioRef} src={event.audioSrc} loop preload="metadata" />
       <button
         type="button"
         onClick={togglePlay}
-        className="flex h-12 w-12 items-center justify-center rounded-full border border-gold bg-burgundy/85 text-champagne shadow-[0_0_18px_rgba(201,164,92,0.28)] backdrop-blur-sm transition hover:bg-maroon"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-full text-champagne transition hover:bg-maroon active:scale-95"
         aria-label={playing ? "Pause invitation music" : "Play invitation music"}
+        aria-pressed={playing}
       >
         {playing ? <Pause className="h-5 w-5" /> : <Music className="h-5 w-5" />}
       </button>
       <button
         type="button"
         onClick={toggleMute}
-        className="flex h-10 w-10 items-center justify-center rounded-full border border-gold/60 bg-burgundy/80 text-champagne"
+        className="inline-flex h-12 w-12 items-center justify-center rounded-full text-champagne transition hover:bg-maroon active:scale-95"
         aria-label={muted ? "Unmute invitation music" : "Mute invitation music"}
+        aria-pressed={muted}
       >
         {muted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
       </button>

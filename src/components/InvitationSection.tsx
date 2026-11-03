@@ -1,114 +1,81 @@
 "use client";
 
+import { Reveal } from "@/components/ui/Reveal";
+import { Section } from "@/components/ui/Section";
+import { PaperCard } from "@/components/ui/PaperCard";
 import { event } from "@/data/event";
-import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
-import { motion } from "framer-motion";
 import Image from "next/image";
-import FloralImage from "./FloralImage";
 import { Kolam } from "./Ornament";
 
 export default function InvitationSection() {
-  const reduced = usePrefersReducedMotion();
-
   return (
-    <section className="bg-[#3a0e1b] px-4 py-24">
-      <motion.article
-        initial={reduced ? false : { opacity: 0, y: 40, rotate: -1 }}
-        whileInView={{ opacity: 1, y: 0, rotate: 0 }}
-        viewport={{ once: true, amount: 0.3 }}
-        transition={{ duration: 0.9, ease: "easeOut" }}
-        className="ivory-card ornament-frame relative mx-auto max-w-2xl px-6 py-16 text-center md:px-16 md:py-20"
-      >
-        <FloralImage
-          variant="gold"
-          className="absolute -left-2 -top-3 w-28 md:-left-1 md:w-40"
-        />
-        <FloralImage
-          variant="gold"
-          className="absolute -right-2 -top-3 w-28 -scale-x-100 md:w-40"
-        />
-        <FloralImage
-          variant="gold"
-          className="absolute -bottom-3 -left-2 w-28 -scale-y-100 md:w-40"
-        />
-        <FloralImage
-          variant="gold"
-          className="absolute -bottom-3 -right-2 w-28 rotate-180 md:w-40"
-        />
+    <Section id="invitation" labelledBy="invitation-heading" className="bg-veil">
+      <Reveal y={36}>
+        <PaperCard className="max-w-2xl px-6 py-16 text-center md:px-16 md:py-20">
+          <Image
+            src={event.assets.ganesh}
+            alt="Lord Ganesha"
+            width={88}
+            height={88}
+            className="mx-auto mb-5 h-16 w-16 object-contain"
+          />
+          <p className="eyebrow text-emerald">{event.copy.invitationEyebrow}</p>
+          <Kolam className="mx-auto my-6 h-8 w-44" />
+          <p className="font-serif text-2xl leading-snug text-maroon md:text-3xl">
+            {event.copy.invitationBlessing}
+          </p>
+          <p lang="ta" className="font-tamil mt-3 text-base text-maroon/80">
+            {event.copy.invitationBlessingTa}
+          </p>
+          <p className="mt-8 text-sm tracking-[0.16em] text-maroon/70">
+            {event.copy.invitationBody}
+          </p>
+          <h2 id="invitation-heading" className="font-serif mt-4 text-4xl text-maroon md:text-5xl">
+            {event.names.joinedUpper}
+          </h2>
+          <p lang="ta" className="font-tamil mt-3 text-xl text-maroon">
+            {event.copy.invitationNamesTa}
+          </p>
 
-        <Image
-          src={event.assets.ganesh}
-          alt="Lord Ganesha"
-          width={72}
-          height={72}
-          className="mx-auto mb-4 h-16 w-16 object-contain"
-        />
-        <p className="text-[11px] uppercase tracking-[0.38em] text-emerald">
-          {event.copy.invitationEyebrow}
-        </p>
-        <Kolam className="mx-auto my-5 h-8 w-44" />
-        <p className="font-serif text-2xl text-maroon md:text-3xl">
-          {event.copy.invitationBlessing}
-        </p>
-        <p className="font-tamil mt-2 text-base text-maroon/80">
-          {event.copy.invitationBlessingTa}
-        </p>
-        <p className="mt-6 text-sm tracking-[0.16em] text-maroon/70">
-          {event.copy.invitationBody}
-        </p>
-        <h2 className="font-serif mt-4 text-4xl text-maroon md:text-5xl">
-          {event.names.joinedUpper}
-        </h2>
-        <p className="font-tamil mt-3 text-xl text-maroon">
-          {event.copy.invitationNamesTa}
-        </p>
-
-        <div className="mt-10 grid gap-8 text-left sm:grid-cols-2 sm:text-center">
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-emerald">
-              Groom
-            </p>
-            <p className="font-serif mt-2 text-2xl text-maroon">
-              {event.groom.displayName}
-            </p>
-            <p className="mt-2 text-sm text-maroon/75">{event.groom.parents}</p>
-            <p className="font-tamil mt-1 text-xs text-maroon/65">
-              {event.groom.parentsTa}
-            </p>
-            <p className="mt-2 text-xs uppercase tracking-[0.16em] text-maroon/70">
-              {event.groom.hometown}
-            </p>
+          <div className="mt-10 grid gap-8 border-y border-gold/25 py-8 text-left sm:grid-cols-2 sm:text-center">
+            <div>
+              <p className="eyebrow text-emerald">Groom</p>
+              <p className="font-serif mt-3 text-2xl text-maroon">{event.groom.displayName}</p>
+              <p className="mt-2 text-sm leading-relaxed text-maroon/75">{event.groom.parents}</p>
+              <p lang="ta" className="font-tamil mt-1 text-xs text-maroon/65">
+                {event.groom.parentsTa}
+              </p>
+              <p className="mt-3 text-xs uppercase tracking-[0.16em] text-maroon/70">
+                {event.groom.hometown}
+              </p>
+            </div>
+            <div>
+              <p className="eyebrow text-emerald">Bride</p>
+              <p className="font-serif mt-3 text-2xl text-maroon">{event.bride.displayName}</p>
+              <p className="mt-2 text-sm leading-relaxed text-maroon/75">{event.bride.parents}</p>
+              <p lang="ta" className="font-tamil mt-1 text-xs text-maroon/65">
+                {event.bride.parentsTa}
+              </p>
+              <p className="mt-3 text-xs uppercase tracking-[0.16em] text-maroon/70">
+                {event.bride.hometown}
+              </p>
+            </div>
           </div>
-          <div>
-            <p className="text-[10px] uppercase tracking-[0.28em] text-emerald">
-              Bride
-            </p>
-            <p className="font-serif mt-2 text-2xl text-maroon">
-              {event.bride.displayName}
-            </p>
-            <p className="mt-2 text-sm text-maroon/75">{event.bride.parents}</p>
-            <p className="font-tamil mt-1 text-xs text-maroon/65">
-              {event.bride.parentsTa}
-            </p>
-            <p className="mt-2 text-xs uppercase tracking-[0.16em] text-maroon/70">
-              {event.bride.hometown}
-            </p>
-          </div>
-        </div>
 
-        <p className="font-serif mt-10 text-xl tracking-[0.18em] text-gold">
-          {event.type.en}
-        </p>
-        <p className="font-tamil mt-2 text-base text-maroon/80">
-          {event.copy.invitationEventTa}
-        </p>
-        <p className="mt-4 text-sm tracking-[0.12em] text-maroon/75">
-          {event.date.displayEn} · {event.time.displayEn}
-        </p>
-        <p className="mt-2 text-sm text-maroon/70">
-          {event.venue.name}, {event.venue.city}
-        </p>
-      </motion.article>
-    </section>
+          <p className="font-serif mt-8 text-xl tracking-[0.18em] text-gold">{event.type.en}</p>
+          <p lang="ta" className="font-tamil mt-2 text-base text-maroon/80">
+            {event.copy.invitationEventTa}
+          </p>
+          <p className="mt-5 text-sm tracking-[0.12em] text-maroon/80">
+            {event.date.displayEn}
+            <span aria-hidden="true"> · </span>
+            {event.time.displayEn}
+          </p>
+          <p className="mt-2 text-sm text-maroon/70">
+            {event.venue.name}, {event.venue.city}
+          </p>
+        </PaperCard>
+      </Reveal>
+    </Section>
   );
 }

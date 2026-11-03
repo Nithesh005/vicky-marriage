@@ -32,6 +32,34 @@ export function Kolam({ className = "" }: { className?: string }) {
   );
 }
 
+export function TwinRingsMark({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 160 120" fill="none" aria-hidden="true" className={className}>
+      <defs>
+        <linearGradient id="ring-metal" x1="20" y1="10" x2="140" y2="110" gradientUnits="userSpaceOnUse">
+          <stop stopColor="#F4E4B8" />
+          <stop offset="0.48" stopColor="#C9A45C" />
+          <stop offset="1" stopColor="#8D6B2F" />
+        </linearGradient>
+      </defs>
+      <ellipse cx="62" cy="62" rx="38" ry="26" stroke="url(#ring-metal)" strokeWidth="7" />
+      <path
+        d="M92 40c18 4 32 16 32 28 0 16-16 30-38 34"
+        stroke="url(#ring-metal)"
+        strokeWidth="7"
+        strokeLinecap="round"
+      />
+      <path
+        d="M86 88c-20 2-40-8-46-22"
+        stroke="url(#ring-metal)"
+        strokeWidth="7"
+        strokeLinecap="round"
+      />
+      <ellipse cx="98" cy="58" rx="36" ry="24" stroke="url(#ring-metal)" strokeWidth="7" />
+    </svg>
+  );
+}
+
 export function CornerFlourish({ className = "" }: { className?: string }) {
   return (
     <svg viewBox="0 0 80 80" fill="none" aria-hidden="true" className={className}>

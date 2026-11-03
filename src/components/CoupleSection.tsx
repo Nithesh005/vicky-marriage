@@ -1,89 +1,61 @@
 "use client";
 
+import { Reveal, Stagger, StaggerItem } from "@/components/ui/Reveal";
+import { Section, SectionHeading } from "@/components/ui/Section";
 import { event } from "@/data/event";
-import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
-import { motion } from "framer-motion";
 import dynamic from "next/dynamic";
-import Image from "next/image";
 import MandalaWatermarks from "./MandalaWatermarks";
-import { Kolam } from "./Ornament";
 import PortraitFrame from "./PortraitFrame";
+import { TwinRingsMark } from "./Ornament";
 
 const GoldRing = dynamic(() => import("./GoldRing"), {
   ssr: false,
-  loading: () => (
-    <div className="mx-auto h-40 w-40 md:h-52 md:w-52">
-      <Image
-        src={event.assets.rings}
-        alt=""
-        width={180}
-        height={180}
-        className="mx-auto h-full w-full object-contain"
-      />
-    </div>
-  ),
+  loading: () => <TwinRingsMark className="mx-auto h-40 w-40 md:h-52 md:w-52" />,
 });
 
 export default function CoupleSection() {
-  const reduced = usePrefersReducedMotion();
-
   return (
-    <section id="couple" className="relative overflow-hidden bg-maroon px-4 py-24 md:py-32">
+    <Section id="couple" labelledBy="couple-heading" className="bg-maroon">
       <MandalaWatermarks />
-
       <div className="relative z-10 mx-auto max-w-6xl">
-        <motion.div
-          initial={reduced ? false : { opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.35 }}
-          transition={{ duration: 0.8 }}
-          className="mb-14 text-center"
-        >
-          <Kolam className="mx-auto mb-6 h-8 w-48" />
-          <h2 className="font-serif text-4xl text-champagne md:text-6xl">
-            {event.copy.coupleHeading}
-          </h2>
-          <p className="font-tamil mt-4 text-lg text-blush">
-            {event.copy.coupleHeadingTa}
-          </p>
-        </motion.div>
+        <Reveal blur>
+          <SectionHeading
+            id="couple-heading"
+            title={event.copy.coupleHeading}
+            titleTa={event.copy.coupleHeadingTa}
+          />
+        </Reveal>
 
-        <div className="flex flex-col items-center justify-center gap-10 md:flex-row md:items-start md:gap-6">
-          <PortraitFrame
-            name={event.groom.displayName}
-            nameTa={event.groom.firstNameTa}
-            src={event.photos.groom}
-            label="Groom"
-            parents={event.groom.parents}
-            parentsTa={event.groom.parentsTa}
-            hometown={event.groom.hometown}
-            hometownTa={event.groom.hometownTa}
-          />
-          <div className="flex flex-col items-center md:pt-16">
-            {reduced ? (
-              <Image
-                src={event.assets.rings}
-                alt="Engagement rings"
-                width={160}
-                height={160}
-                className="h-32 w-32 object-contain"
-              />
-            ) : (
-              <GoldRing />
-            )}
-          </div>
-          <PortraitFrame
-            name={event.bride.displayName}
-            nameTa={event.bride.firstNameTa}
-            src={event.photos.bride}
-            label="Bride"
-            parents={event.bride.parents}
-            parentsTa={event.bride.parentsTa}
-            hometown={event.bride.hometown}
-            hometownTa={event.bride.hometownTa}
-          />
-        </div>
+        <Stagger className="flex flex-col items-center justify-center gap-12 md:flex-row md:items-start md:gap-8 lg:gap-14">
+          <StaggerItem>
+            <PortraitFrame
+              name={event.groom.displayName}
+              nameTa={event.groom.firstNameTa}
+              src={event.photos.groom}
+              label="Groom"
+              parents={event.groom.parents}
+              parentsTa={event.groom.parentsTa}
+              hometown={event.groom.hometown}
+              hometownTa={event.groom.hometownTa}
+            />
+          </StaggerItem>
+          <StaggerItem className="hidden md:block md:pt-24">
+            <GoldRing />
+          </StaggerItem>
+          <StaggerItem>
+            <PortraitFrame
+              name={event.bride.displayName}
+              nameTa={event.bride.firstNameTa}
+              src={event.photos.bride}
+              label="Bride"
+              parents={event.bride.parents}
+              parentsTa={event.bride.parentsTa}
+              hometown={event.bride.hometown}
+              hometownTa={event.bride.hometownTa}
+            />
+          </StaggerItem>
+        </Stagger>
       </div>
-    </section>
+    </Section>
   );
 }

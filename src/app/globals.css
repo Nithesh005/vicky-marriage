@@ -8,6 +8,9 @@
   --ivory: #fff9ef;
   --blush: #f2d9d7;
   --emerald: #244c3a;
+  --ink: #2b0914;
+  --veil: #3a0e1b;
+  --night: #1a070d;
   --background: var(--burgundy);
   --foreground: var(--ivory);
 }
@@ -20,19 +23,58 @@
   --color-ivory: var(--ivory);
   --color-blush: var(--blush);
   --color-emerald: var(--emerald);
+  --color-ink: var(--ink);
+  --color-veil: var(--veil);
+  --color-night: var(--night);
   --font-serif: var(--font-cormorant);
   --font-sans: var(--font-inter);
   --font-tamil: var(--font-tamil);
+  --text-display: clamp(3.5rem, 13vw, 8.25rem);
+  --text-display--line-height: 0.86;
+  --text-title: clamp(2.35rem, 4.6vw, 4.25rem);
+  --text-title--line-height: 1.08;
 }
 
 html {
   scroll-behavior: smooth;
+  scroll-padding-top: 1rem;
 }
 
 body {
   background: var(--burgundy);
   color: var(--ivory);
   font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: clip;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgba(201, 164, 92, 0.35);
+  color: var(--ivory);
+}
+
+:focus-visible {
+  outline: 2px solid var(--champagne);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  z-index: 80;
+  translate: 0 -180%;
+  border-radius: 999px;
+  background: var(--champagne);
+  color: var(--burgundy);
+  padding: 0.75rem 1.1rem;
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.skip-link:focus {
+  translate: 0 0;
 }
 
 .font-serif {
@@ -41,6 +83,15 @@ body {
 
 .font-tamil {
   font-family: var(--font-tamil), "Noto Sans Tamil", sans-serif;
+  line-height: 1.75;
+}
+
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.38em;
+  line-height: 1.5;
+  text-transform: uppercase;
 }
 
 .gold-text {
@@ -79,7 +130,7 @@ body {
   pointer-events: none;
   position: absolute;
   inset: 0;
-  opacity: 0.18;
+  opacity: 0.12;
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23n)' opacity='.55'/%3E%3C/svg%3E");
 }
@@ -156,6 +207,34 @@ body {
   animation: pulse-gold 3.6s ease-in-out infinite;
 }
 
+.glass-panel {
+  background: linear-gradient(180deg, rgba(74, 16, 32, 0.62), rgba(49, 11, 24, 0.78));
+  border: 1px solid rgba(201, 164, 92, 0.38);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 249, 239, 0.1),
+    0 18px 40px rgba(0, 0, 0, 0.24);
+  backdrop-filter: blur(12px);
+}
+
+.hero-glow {
+  transform: translate3d(-50%, -50%, 0);
+  animation: glow-drift 18s ease-in-out infinite;
+}
+
+.float-soft {
+  animation: float-y 7.5s ease-in-out infinite;
+}
+
+@keyframes glow-drift {
+  0%,
+  100% {
+    transform: translate3d(-50%, -50%, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-46%, -54%, 0) scale(1.08);
+  }
+}
+
 .petal {
   position: absolute;
   top: -12vh;
@@ -163,7 +242,7 @@ body {
   height: 16px;
   border-radius: 80% 0 80% 0;
   background: linear-gradient(135deg, #fff9ef, #f2d9d7 40%, #c9a45c);
-  opacity: 0.7;
+  opacity: 0.42;
   animation: petal-fall linear infinite;
 }
 
@@ -179,7 +258,9 @@ body {
   .diya::after,
   .gold-btn,
   .petal,
-  .scroll-hint {
+  .scroll-hint,
+  .hero-glow,
+  .float-soft {
     animation: none !important;
   }
 }

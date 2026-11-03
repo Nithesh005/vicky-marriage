@@ -7,9 +7,9 @@ export default function FloatingDecorations() {
   const reduced = usePrefersReducedMotion();
   const petals = useMemo(
     () =>
-      Array.from({ length: 10 }, (_, i) => ({
+      Array.from({ length: 6 }, (_, i) => ({
         id: i,
-        left: `${6 + i * 9}%`,
+        left: `${8 + i * 15}%`,
         delay: `${i * 1.4}s`,
         duration: `${16 + (i % 5) * 3}s`,
         scale: 0.7 + (i % 4) * 0.18,

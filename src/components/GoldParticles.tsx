@@ -23,6 +23,8 @@ export default function GoldParticles({ className = "" }: { className?: string }
 
     let frame = 0;
     let running = true;
+    let visible = true;
+    let scheduled = false;
     const particles: Particle[] = [];
 
     const resize = () => {
@@ -45,30 +47,44 @@ export default function GoldParticles({ className = "" }: { className?: string }
     };
 
     resize();
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
+    const resizeObserver = new ResizeObserver(resize);
+    resizeObserver.observe(canvas);
 
-    const draw = () => {
-      if (!running) return;
-      const { width, height } = canvas.getBoundingClientRect();
-      ctx.clearRect(0, 0, width, height);
-      particles.forEach((p) => {
-        p.y -= p.s;
-        p.x += Math.sin((frame + p.x) / 80) * 0.15;
-        if (p.y < -4) p.y = height + 4;
-        ctx.beginPath();
-        ctx.fillStyle = `rgba(231, 212, 165, ${p.a})`;
-        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
-        ctx.fill();
+    const schedule = () => {
+      if (!running || scheduled || !visible || document.hidden) return;
+      scheduled = true;
+      requestAnimationFrame(() => {
+        scheduled = false;
+        if (!running || !visible || document.hidden) return;
+        const { width, height } = canvas.getBoundingClientRect();
+        ctx.clearRect(0, 0, width, height);
+        particles.forEach((particle) => {
+          particle.y -= particle.s;
+          particle.x += Math.sin((frame + particle.x) / 80) * 0.15;
+          if (particle.y < -4) particle.y = height + 4;
+          ctx.beginPath();
+          ctx.fillStyle = `rgba(231, 212, 165, ${particle.a})`;
+          ctx.arc(particle.x, particle.y, particle.r, 0, Math.PI * 2);
+          ctx.fill();
+        });
+        frame += 1;
+        schedule();
       });
-      frame += 1;
-      requestAnimationFrame(draw);
     };
 
-    draw();
+    const visibilityObserver = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      schedule();
+    });
+    visibilityObserver.observe(canvas);
+    document.addEventListener("visibilitychange", schedule);
+    schedule();
+
     return () => {
       running = false;
-      observer.disconnect();
+      resizeObserver.disconnect();
+      visibilityObserver.disconnect();
+      document.removeEventListener("visibilitychange", schedule);
     };
   }, [reduced]);
 

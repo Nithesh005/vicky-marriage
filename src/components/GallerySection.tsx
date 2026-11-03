@@ -1,62 +1,82 @@
 "use client";
 
+import FloralImage from "@/components/FloralImage";
+import { Reveal } from "@/components/ui/Reveal";
+import { Section, SectionHeading } from "@/components/ui/Section";
 import { event } from "@/data/event";
 import { usePrefersReducedMotion } from "@/lib/usePrefersReducedMotion";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronLeft, ChevronRight, X } from "lucide-react";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
-import FloralImage from "./FloralImage";
-import { Kolam } from "./Ornament";
 
 export default function GallerySection() {
   const reduced = usePrefersReducedMotion();
   const photos = event.photos.gallery;
   const [active, setActive] = useState<number | null>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
+  const touchX = useRef(0);
+  const returnFocus = useRef<HTMLElement | null>(null);
 
   const close = useCallback(() => setActive(null), []);
   const prev = useCallback(() => {
-    setActive((index) =>
-      index === null ? index : (index + photos.length - 1) % photos.length,
-    );
+    setActive((index) => (index === null ? index : (index + photos.length - 1) % photos.length));
   }, [photos.length]);
   const next = useCallback(() => {
-    setActive((index) =>
-      index === null ? index : (index + 1) % photos.length,
-    );
+    setActive((index) => (index === null ? index : (index + 1) % photos.length));
   }, [photos.length]);
+
+  const open = (index: number) => {
+    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setActive(index);
+  };
 
   useEffect(() => {
     if (active === null) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") close();
-      if (e.key === "ArrowLeft") prev();
-      if (e.key === "ArrowRight") next();
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    const dialog = dialogRef.current;
+    const focusable = () =>
+      Array.from(
+        dialog?.querySelectorAll<HTMLElement>("button, [href], [tabindex]:not([tabindex='-1'])") ?? [],
+      );
+    dialog?.querySelector<HTMLElement>("[data-lightbox-close]")?.focus();
+
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === "Escape") close();
+      if (event.key === "ArrowLeft") prev();
+      if (event.key === "ArrowRight") next();
+      if (event.key !== "Tab") return;
+      const items = focusable();
+      if (items.length === 0) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
     };
+
     window.addEventListener("keydown", onKey);
-    return () => window.removeEventListener("keydown", onKey);
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", onKey);
+      returnFocus.current?.focus();
+    };
   }, [active, close, next, prev]);
 
-  const touchX = useRef(0);
-
   return (
-    <section id="gallery" className="relative overflow-hidden bg-[#3a0e1b] px-4 py-24">
-      <FloralImage
-        variant="topLeft"
-        className="absolute -left-10 -top-8 w-36 opacity-80 md:w-52"
-      />
-      <FloralImage
-        variant="topRight"
-        className="absolute -right-8 -top-6 w-32 opacity-80 md:w-48"
-      />
+    <Section id="gallery" labelledBy="gallery-heading" className="bg-ink">
+      <FloralImage variant="topLeft" className="absolute -left-10 -top-8 w-36 opacity-70 md:w-52" />
+      <FloralImage variant="topRight" className="absolute -right-8 -top-6 w-32 opacity-70 md:w-48" />
       <div className="relative z-10 mx-auto max-w-6xl">
-        <div className="mb-12 text-center">
-          <Kolam className="mx-auto mb-6 h-8 w-44" />
-          <h2 className="font-serif text-4xl text-champagne md:text-5xl">
-            {event.copy.galleryHeading}
-          </h2>
-          <FloralImage variant="garland" className="mx-auto mt-8 w-56 md:w-80" />
-        </div>
+        <Reveal blur>
+          <SectionHeading id="gallery-heading" title={event.copy.galleryHeading} />
+          <FloralImage variant="garland" className="mx-auto -mt-6 mb-12 w-56 md:w-80" />
+        </Reveal>
 
         {photos.length === 0 ? (
           <div className="ivory-card ornament-frame mx-auto flex max-w-lg flex-col items-center px-6 py-16 text-center">
@@ -67,25 +87,23 @@ export default function GallerySection() {
               height={140}
               className="mb-6 h-28 w-28 object-contain"
             />
-            <p className="font-serif text-2xl text-maroon">
-              {event.copy.galleryEmpty}
-            </p>
+            <p className="font-serif text-2xl text-maroon">{event.copy.galleryEmpty}</p>
             <p className="mt-3 text-sm text-maroon/70">
               Add photographs in <code>src/data/event.ts</code>.
             </p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 sm:gap-6 lg:gap-8">
+          <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 sm:gap-8">
             {photos.map((photo, index) => (
               <motion.button
                 key={photo.src}
                 type="button"
-                onClick={() => setActive(index)}
-                initial={reduced ? false : { opacity: 0, y: 16 }}
+                onClick={() => open(index)}
+                initial={reduced ? false : { opacity: 0, y: 18 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: reduced ? 0 : Math.min(index * 0.05, 0.25) }}
-                className="ornament-frame group relative aspect-[9/7] w-full overflow-hidden rounded-3xl"
+                viewport={{ once: true, margin: "0px 0px -8% 0px" }}
+                transition={{ delay: reduced ? 0 : index * 0.08, duration: 0.7 }}
+                className="ornament-frame group relative aspect-[4/5] w-full cursor-zoom-in overflow-hidden rounded-[1.75rem] shadow-[0_24px_50px_rgba(0,0,0,0.25)]"
                 aria-label={`Open photograph: ${photo.alt}`}
               >
                 <Image
@@ -93,8 +111,11 @@ export default function GallerySection() {
                   alt={photo.alt}
                   fill
                   sizes="(max-width: 640px) 100vw, 50vw"
-                  className="object-cover object-[center_28%] transition duration-700 group-hover:scale-105"
+                  className="object-cover object-[center_22%] transition duration-700 group-hover:scale-[1.04]"
                 />
+                <span className="pointer-events-none absolute inset-x-0 bottom-0 bg-gradient-to-t from-burgundy/70 to-transparent px-5 py-5 text-left text-sm tracking-[0.08em] text-ivory opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
+                  {photo.alt}
+                </span>
               </motion.button>
             ))}
           </div>
@@ -104,65 +125,84 @@ export default function GallerySection() {
       <AnimatePresence>
         {active !== null && photos[active] ? (
           <motion.div
-            className="fixed inset-0 z-[60] flex items-center justify-center bg-burgundy/92 px-4"
+            ref={dialogRef}
+            className="fixed inset-0 z-[70] flex items-center justify-center bg-night/90 px-4 py-8 backdrop-blur-md"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            onClick={close}
-            onTouchStart={(e) => {
-              touchX.current = e.changedTouches[0]?.clientX ?? 0;
-            }}
-            onTouchEnd={(e) => {
-              const x = e.changedTouches[0]?.clientX ?? 0;
-              const delta = x - touchX.current;
-              if (delta > 50) prev();
-              if (delta < -50) next();
-            }}
             role="dialog"
             aria-modal="true"
             aria-label="Photograph lightbox"
+            onClick={close}
+            onTouchStart={(event) => {
+              touchX.current = event.changedTouches[0]?.clientX ?? 0;
+            }}
+            onTouchEnd={(event) => {
+              const x = event.changedTouches[0]?.clientX ?? 0;
+              const delta = x - touchX.current;
+              if (delta > 48) prev();
+              if (delta < -48) next();
+            }}
           >
-            <button
-              type="button"
-              onClick={close}
-              className="absolute right-4 top-4 rounded-full border border-gold/50 p-2 text-champagne"
-              aria-label="Close photograph"
+            <div
+              className="flex w-full max-w-4xl flex-col items-center"
+              onClick={(event) => event.stopPropagation()}
             >
-              <X className="h-5 w-5" />
-            </button>
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                prev();
-              }}
-              className="absolute left-3 rounded-full border border-gold/50 p-2 text-champagne"
-              aria-label="Previous photograph"
-            >
-              <ChevronLeft className="h-5 w-5" />
-            </button>
-            <Image
-              src={photos[active].src}
-              alt={photos[active].alt}
-              width={1200}
-              height={1600}
-              className="max-h-[82vh] w-auto max-w-full object-contain"
-              onClick={(e) => e.stopPropagation()}
-            />
-            <button
-              type="button"
-              onClick={(e) => {
-                e.stopPropagation();
-                next();
-              }}
-              className="absolute right-3 rounded-full border border-gold/50 p-2 text-champagne"
-              aria-label="Next photograph"
-            >
-              <ChevronRight className="h-5 w-5" />
-            </button>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={photos[active].src}
+                  initial={reduced ? false : { opacity: 0, scale: 0.985 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.28 }}
+                >
+                  <Image
+                    src={photos[active].src}
+                    alt={photos[active].alt}
+                    width={1200}
+                    height={1500}
+                    className="max-h-[72vh] w-auto max-w-full rounded-2xl object-contain shadow-[0_30px_80px_rgba(0,0,0,0.4)]"
+                  />
+                </motion.div>
+              </AnimatePresence>
+              <p className="mt-4 text-center text-sm tracking-[0.14em] text-champagne" aria-live="polite">
+                {photos[active].alt}
+              </p>
+              <div className="mt-4 flex items-center gap-3">
+                {photos.length > 1 ? (
+                  <button
+                    type="button"
+                    onClick={prev}
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 text-champagne transition hover:bg-white/5"
+                    aria-label="Previous photograph"
+                  >
+                    <ChevronLeft className="h-5 w-5" />
+                  </button>
+                ) : null}
+                <button
+                  type="button"
+                  onClick={close}
+                  data-lightbox-close
+                  className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 text-champagne transition hover:bg-white/5"
+                  aria-label="Close photograph"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+                {photos.length > 1 ? (
+                  <button
+                    type="button"
+                    onClick={next}
+                    className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-gold/50 text-champagne transition hover:bg-white/5"
+                    aria-label="Next photograph"
+                  >
+                    <ChevronRight className="h-5 w-5" />
+                  </button>
+                ) : null}
+              </div>
+            </div>
           </motion.div>
         ) : null}
       </AnimatePresence>
-    </section>
+    </Section>
   );
 }
