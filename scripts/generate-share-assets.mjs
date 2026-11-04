@@ -74,7 +74,7 @@ function overlaySvg(groomCenterX, brideCenterX, centerY) {
   <line x1="635" y1="292" x2="745" y2="292" stroke="#c9a45c" stroke-width="1"/>
   <text x="600" y="334" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', 'Times New Roman', serif" font-size="20" letter-spacing="5" fill="#c9a45c">ENGAGEMENT CEREMONY</text>
   <text x="600" y="386" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', 'Times New Roman', serif" font-size="32" fill="#fff9ef">15 NOVEMBER 2026</text>
-  <text x="600" y="432" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', 'Times New Roman', serif" font-size="16" letter-spacing="2.4" fill="#e7d4a5">SRI LAKSHIMI MAHAL, SALEM</text>
+  <text x="600" y="432" text-anchor="middle" font-family="Georgia, 'Palatino Linotype', 'Times New Roman', serif" font-size="16" letter-spacing="2.4" fill="#e7d4a5">R.U. Sunil Thirumana Mandapam, Salem</text>
 </svg>`);
 }
 

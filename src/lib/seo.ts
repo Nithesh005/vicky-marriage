@@ -10,22 +10,22 @@ export const seo = {
   coupleTa: "விக்னேஷ் & ப்ரீத்தி",
   title: "Vignesh & Preethi Engagement | 15 November 2026 | Salem",
   description:
-    "With the blessings of our families, join us to celebrate the engagement of Vignesh & Preethi on 15 November 2026 at Sri Lakshimi Mahal, Salem. Your presence will make our celebration more special.",
+    "With the blessings of our families, join us to celebrate the engagement of Vignesh & Preethi on 15 November 2026 at R.U. Sunil Thirumana Mandapam, Salem. Your presence will make our celebration more special.",
   ogTitle: "Vignesh & Preethi | Engagement Ceremony",
   ogDescription:
-    "Join us to celebrate the beautiful beginning of Vignesh & Preethi on 15 November 2026 at Sri Lakshimi Mahal, Salem.",
+    "Join us to celebrate the beautiful beginning of Vignesh & Preethi on 15 November 2026 at R.U. Sunil Thirumana Mandapam, Salem.",
   tamilDescription:
-    "இறைவன் திருவருளுடன் விக்னேஷ் மற்றும் ப்ரீத்தியின் இனிய நிச்சயதார்த்த விழாவிற்கு உங்களை அன்புடன் அழைக்கிறோம். 15 நவம்பர் 2026, காலை 10:30 மணி, ஸ்ரீ லக்ஷ்மி மகால், சேலம்.",
+    "இறைவன் திருவருளுடன் விக்னேஷ் மற்றும் ப்ரீத்தியின் இனிய நிச்சயதார்த்த விழாவிற்கு உங்களை அன்புடன் அழைக்கிறோம். 15 நவம்பர் 2026, காலை 10:30 மணி, ரூ. சுனில் திருமண மண்டபம், சேலம்.",
   tamilName: "விக்னேஷ் & ப்ரீத்தி நிச்சயதார்த்த விழா",
   eventName: "Engagement Ceremony of Vignesh & Preethi",
   startDate: "2026-11-15T10:30:00+05:30",
-  venueName: "Sri Lakshimi Mahal",
+  venueName: "R.U. Sunil Thirumana Mandapam",
   locality: "Salem",
   region: "Tamil Nadu",
   country: "IN",
   imagePath: "/images/engagement-og.jpg?v=2",
   imageAlt:
-    "Vignesh and Preethi at their engagement ceremony on 15 November 2026 at Sri Lakshimi Mahal, Salem.",
+    "Vignesh and Preethi at their engagement ceremony on 15 November 2026 at R.U. Sunil Thirumana Mandapam, Salem.",
   imageWidth: 1200,
   imageHeight: 630,
   themeColor: "#310b18",

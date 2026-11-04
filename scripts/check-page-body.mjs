@@ -1,8 +1,8 @@
 const html = await (await fetch("http://localhost:3044")).text();
 const checks = {
   hero: html.includes("The Beginning of Forever"),
-  pageVenue: html.includes("R.U. Sunil"),
-  metaVenue: html.includes("Sri Lakshimi"),
+  pageVenue: html.includes("R.U. Sunil Thirumana Mandapam"),
+  metaVenue: html.includes("R.U. Sunil Thirumana Mandapam"),
   groomBeforeBride: html.indexOf("Vignesh") !== -1 && html.indexOf("Vignesh") < html.indexOf("Preethi"),
 };
 console.log(checks);

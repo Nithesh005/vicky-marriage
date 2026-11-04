@@ -95,7 +95,7 @@ for (const pathname of paths) {
       console.log("TAMIL_DESCRIPTION", page.workTranslation.description);
       console.log("TAMIL_NAME", page.workTranslation.name);
       if (event.startDate !== "2026-11-15T10:30:00+05:30") fail("unexpected startDate");
-      if (event.location.name !== "Sri Lakshimi Mahal") fail("unexpected venue");
+      if (event.location.name !== "R.U. Sunil Thirumana Mandapam") fail("unexpected venue");
       if (event.organizer) fail("organizer was invented");
       if (event.endDate) fail("endDate was invented");
       if (!event.location.geo) {
